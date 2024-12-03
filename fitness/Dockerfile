@@ -1,9 +1,6 @@
 FROM openjdk:22-jdk AS build
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
+WORKDIR /app
+COPY . .
 RUN chmod +x ./gradlew
 RUN ./gradlew clean build -x test
 FROM openjdk:22-jdk
