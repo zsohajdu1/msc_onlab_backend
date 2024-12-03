@@ -1,5 +1,4 @@
 FROM openjdk:22-jdk AS build
-WORKDIR /app
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle .
