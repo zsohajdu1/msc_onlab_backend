@@ -5,8 +5,6 @@ import aut.bme.hu.fitness.entity.CalorieIntake;
 import aut.bme.hu.fitness.repository.CalorieIntakeRepository;
 import aut.bme.hu.fitness.repository.UserRepository;
 import aut.bme.hu.fitness.service.CalorieIntakeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -17,26 +15,13 @@ import java.util.stream.Collectors;
 @Service
 public class CalorieIntakeServiceImpl implements CalorieIntakeService {
 
-    @Autowired
-    private CalorieIntakeRepository calorieIntakeRepository;
+    private final CalorieIntakeRepository calorieIntakeRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public List<CalorieIntakeDTO> getDailyCalorieIntakes() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        long userId = userRepository.findByUsername(userName).getId();
-        List<CalorieIntake> calorieIntakes =
-                calorieIntakeRepository.findAllByUserIdAndDate(userId, LocalDate.now());
-        return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
-    }
-
-    public List<CalorieIntakeDTO> getMonthlyCalorieIntakes() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        long userId = userRepository.findByUsername(userName).getId();
-        List<CalorieIntake> calorieIntakes =
-                calorieIntakeRepository.findAllByUserIdAndDateAfter(userId, LocalDate.now().withDayOfMonth(1));
-        return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
+    public CalorieIntakeServiceImpl(UserRepository userRepository, CalorieIntakeRepository calorieIntakeRepository) {
+        this.userRepository = userRepository;
+        this.calorieIntakeRepository = calorieIntakeRepository;
     }
 
     public void save(CalorieIntakeDTO calorieIntakeDTO) {
@@ -48,7 +33,16 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
         calorieIntakeRepository.deleteById(id);
     }
 
-    private static CalorieIntakeDTO convertToDTO (CalorieIntake calorieIntake) {
+    @Override
+    public List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        long userId = userRepository.findByUsername(userName).getId();
+        List<CalorieIntake> calorieIntakes =
+                calorieIntakeRepository.findAllByUserIdAndDate(userId, date);
+        return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
+    }
+
+    private static CalorieIntakeDTO convertToDTO(CalorieIntake calorieIntake) {
         CalorieIntakeDTO calorieIntakeDTO = new CalorieIntakeDTO();
         calorieIntakeDTO.setId(calorieIntake.getId());
         calorieIntakeDTO.setUserId(calorieIntake.getUser().getId());
@@ -59,7 +53,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
         return calorieIntakeDTO;
     }
 
-    private static CalorieIntake convertToEntity (CalorieIntakeDTO calorieIntakeDTO) {
+    private static CalorieIntake convertToEntity(CalorieIntakeDTO calorieIntakeDTO) {
         CalorieIntake calorieIntake = new CalorieIntake();
         calorieIntake.setId(calorieIntakeDTO.getId());
         calorieIntake.setName(calorieIntakeDTO.getName());

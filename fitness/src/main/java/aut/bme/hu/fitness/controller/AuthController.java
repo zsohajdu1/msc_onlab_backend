@@ -1,36 +1,35 @@
 package aut.bme.hu.fitness.controller;
 
-import aut.bme.hu.fitness.entity.User;
+import aut.bme.hu.fitness.dto.UserRequestDTO;
 import aut.bme.hu.fitness.service.UserService;
-import aut.bme.hu.fitness.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+
+    public AuthController(UserService userService, AuthenticationManager authenticationManager) {
+        this.userService = userService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping("/register")
-    public void registerUser(@RequestParam String username, @RequestParam String password) {
-        userService.registerUser(username, password);
+    public void registerUser(@RequestBody UserRequestDTO userRequest) {
+        userService.registerUser(userRequest.getUsername(), userRequest.getPassword());
     }
 
     @PostMapping("/login")
-    public void loginUser(@RequestParam String username, @RequestParam String password) {
+    public void loginUser(@RequestBody UserRequestDTO userRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password));
+                new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
@@ -39,4 +38,6 @@ public class AuthController {
         SecurityContextHolder.clearContext();
     }
 
+
 }
+

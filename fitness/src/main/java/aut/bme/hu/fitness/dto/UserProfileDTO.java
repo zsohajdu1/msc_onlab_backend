@@ -3,12 +3,14 @@ package aut.bme.hu.fitness.dto;
 import aut.bme.hu.fitness.entity.ActivityLevel;
 import aut.bme.hu.fitness.entity.Gender;
 
+import java.time.LocalDate;
+
 public class UserProfileDTO {
     private long id;
 
     private long userId;
 
-    private int age;
+    private LocalDate birthDate;
 
     private Gender gender;
 
@@ -36,12 +38,12 @@ public class UserProfileDTO {
         this.userId = userId;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Gender getGender() {

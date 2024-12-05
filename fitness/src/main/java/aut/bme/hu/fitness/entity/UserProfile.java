@@ -2,8 +2,10 @@ package aut.bme.hu.fitness.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name="userprofile")
+@Table(name = "userprofile")
 public class UserProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +16,7 @@ public class UserProfile {
     private User user;
 
     @Column(nullable = false)
-    private Integer age;
+    private LocalDate birthDate;
 
     @Column(nullable = false)
     private Gender gender;
@@ -44,12 +46,12 @@ public class UserProfile {
         this.user = user;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Gender getGender() {

@@ -2,25 +2,23 @@ package aut.bme.hu.fitness.controller;
 
 import aut.bme.hu.fitness.dto.CalorieIntakeDTO;
 import aut.bme.hu.fitness.service.CalorieIntakeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/calorieintakes")
 public class CalorieIntakeController {
-    @Autowired
-    private CalorieIntakeService calorieIntakeService;
+    private final CalorieIntakeService calorieIntakeService;
 
-    @GetMapping("/daily")
-    public List<CalorieIntakeDTO> getDailyCalorieIntakes() {
-        return calorieIntakeService.getDailyCalorieIntakes();
+    public CalorieIntakeController(CalorieIntakeService calorieIntakeService) {
+        this.calorieIntakeService = calorieIntakeService;
     }
 
-    @GetMapping("/monthly")
-    public List<CalorieIntakeDTO> getMonthlyCalorieIntakes() {
-        return calorieIntakeService.getMonthlyCalorieIntakes();
+    @GetMapping("/date")
+    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestBody LocalDate date) {
+        return calorieIntakeService.getDateCalorieIntakes(date);
     }
 
     @PostMapping("")
