@@ -3,7 +3,6 @@ package aut.bme.hu.fitness.service.impl;
 import aut.bme.hu.fitness.dto.CalorieIntakeDTO;
 import aut.bme.hu.fitness.entity.CalorieIntake;
 import aut.bme.hu.fitness.repository.CalorieIntakeRepository;
-import aut.bme.hu.fitness.repository.UserRepository;
 import aut.bme.hu.fitness.service.CalorieIntakeService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,8 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
 
     private final CalorieIntakeRepository calorieIntakeRepository;
 
-    private final UserRepository userRepository;
 
-    public CalorieIntakeServiceImpl(UserRepository userRepository, CalorieIntakeRepository calorieIntakeRepository) {
-        this.userRepository = userRepository;
+    public CalorieIntakeServiceImpl(CalorieIntakeRepository calorieIntakeRepository) {
         this.calorieIntakeRepository = calorieIntakeRepository;
     }
 
@@ -34,18 +31,16 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     }
 
     @Override
-    public List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date) {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        long userId = userRepository.findByUsername(userName).getId();
+    public List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date, String uid) {
         List<CalorieIntake> calorieIntakes =
-                calorieIntakeRepository.findAllByUserIdAndDate(userId, date);
+                calorieIntakeRepository.findAllByUidAndDate(uid, date);
         return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
     }
 
     private static CalorieIntakeDTO convertToDTO(CalorieIntake calorieIntake) {
         CalorieIntakeDTO calorieIntakeDTO = new CalorieIntakeDTO();
         calorieIntakeDTO.setId(calorieIntake.getId());
-        calorieIntakeDTO.setUserId(calorieIntake.getUser().getId());
+        calorieIntakeDTO.setUid(calorieIntake.getUid());
         calorieIntakeDTO.setName(calorieIntake.getName());
         calorieIntakeDTO.setDate(calorieIntake.getDate());
         calorieIntakeDTO.setCalories(calorieIntake.getCalories());

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class CalorieIntakeDTO {
     private long id;
 
-    private long userId;
+    private String uid;
 
     private LocalDate date;
 
@@ -24,12 +24,12 @@ public class CalorieIntakeDTO {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public LocalDate getDate() {

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class UserProfileDTO {
     private long id;
 
-    private long userId;
+    private String uid;
 
     private LocalDate birthDate;
 
@@ -30,12 +30,12 @@ public class UserProfileDTO {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public LocalDate getBirthDate() {

@@ -5,7 +5,6 @@ import aut.bme.hu.fitness.entity.ActivityLevel;
 import aut.bme.hu.fitness.entity.Gender;
 import aut.bme.hu.fitness.entity.UserProfile;
 import aut.bme.hu.fitness.repository.UserProfileRepository;
-import aut.bme.hu.fitness.repository.UserRepository;
 import aut.bme.hu.fitness.service.UserProfileService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,17 +18,13 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
 
-    private final UserRepository userRepository;
 
-    public UserProfileServiceImpl(UserProfileRepository userProfileRepository, UserRepository userRepository) {
+    public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
-        this.userRepository = userRepository;
     }
 
-    public UserProfileDTO get() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        long userId = userRepository.findByUsername(userName).getId();
-        Optional<UserProfile> userProfile = userProfileRepository.findById(userId);
+    public UserProfileDTO get(String uid) {
+        Optional<UserProfile> userProfile = userProfileRepository.findByUid(uid);
         return userProfile.map(this::convertToDTO).orElse(null);
     }
 
@@ -40,7 +35,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private UserProfileDTO convertToDTO(UserProfile userProfile) {
         UserProfileDTO userProfileDTO = new UserProfileDTO();
         userProfileDTO.setId(userProfile.getId());
-        userProfileDTO.setUserId(userProfile.getUser().getId());
+        userProfileDTO.setUid(userProfile.getUid());
         userProfileDTO.setBirthDate(userProfile.getBirthDate());
         userProfileDTO.setGender(userProfile.getGender());
         userProfileDTO.setActivityLevel(userProfile.getActivityLevel());

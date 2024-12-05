@@ -16,9 +16,8 @@ public class UserProfileController {
     }
 
     @GetMapping("")
-    public ResponseEntity<UserProfileDTO> get() {
-        UserProfileDTO userProfileDTO = userProfileService.get();
-        return ResponseEntity.ok(userProfileDTO);
+    public UserProfileDTO get(@RequestParam String uid) {
+        return userProfileService.get(uid);
     }
 
     @PutMapping("")

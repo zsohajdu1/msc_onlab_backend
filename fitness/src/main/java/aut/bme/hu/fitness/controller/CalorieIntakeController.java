@@ -17,8 +17,8 @@ public class CalorieIntakeController {
     }
 
     @GetMapping("/date")
-    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestBody LocalDate date) {
-        return calorieIntakeService.getDateCalorieIntakes(date);
+    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestBody LocalDate date, @RequestParam String uid) {
+        return calorieIntakeService.getDateCalorieIntakes(date, uid);
     }
 
     @PostMapping("")

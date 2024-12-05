@@ -10,5 +10,5 @@ public interface CalorieIntakeService {
 
     void delete(long id);
 
-    List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date);
+    List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date, String uid);
 }
