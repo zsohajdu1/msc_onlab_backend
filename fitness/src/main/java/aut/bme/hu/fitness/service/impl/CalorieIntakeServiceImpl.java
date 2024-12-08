@@ -51,6 +51,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     private static CalorieIntake convertToEntity(CalorieIntakeDTO calorieIntakeDTO) {
         CalorieIntake calorieIntake = new CalorieIntake();
         calorieIntake.setId(calorieIntakeDTO.getId());
+        calorieIntake.setUid(calorieIntakeDTO.getUid());
         calorieIntake.setName(calorieIntakeDTO.getName());
         calorieIntake.setDate(calorieIntakeDTO.getDate());
         calorieIntake.setCalories(calorieIntakeDTO.getCalories());

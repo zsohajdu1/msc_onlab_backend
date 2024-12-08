@@ -17,7 +17,7 @@ public class CalorieIntakeController {
     }
 
     @GetMapping("/date")
-    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestBody LocalDate date, @RequestParam String uid) {
+    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestParam LocalDate date, @RequestParam String uid) {
         return calorieIntakeService.getDateCalorieIntakes(date, uid);
     }
 
@@ -32,7 +32,7 @@ public class CalorieIntakeController {
     }
 
     @DeleteMapping("")
-    public void delete(@RequestBody long id) {
+    public void delete(@RequestParam long id) {
         calorieIntakeService.delete(id);
     }
 

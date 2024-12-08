@@ -40,6 +40,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfileDTO.setGender(userProfile.getGender());
         userProfileDTO.setActivityLevel(userProfile.getActivityLevel());
         userProfileDTO.setHeight(userProfile.getHeight());
+        userProfileDTO.setWeight(userProfile.getWeight());
         userProfileDTO.setTdee(
                 calculateTdee(userProfile.getWeight(),
                         userProfile.getHeight(),
@@ -53,10 +54,12 @@ public class UserProfileServiceImpl implements UserProfileService {
     private UserProfile convertToEntity(UserProfileDTO userProfileDTO) {
         UserProfile userProfile = new UserProfile();
         userProfile.setId(userProfileDTO.getId());
+        userProfile.setUid(userProfileDTO.getUid());
         userProfile.setBirthDate(userProfileDTO.getBirthDate());
         userProfile.setGender(userProfileDTO.getGender());
         userProfile.setActivityLevel(userProfileDTO.getActivityLevel());
         userProfile.setHeight(userProfileDTO.getHeight());
+        userProfile.setWeight(userProfileDTO.getWeight());
         return userProfile;
     }
 

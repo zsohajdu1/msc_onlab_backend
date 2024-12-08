@@ -20,6 +20,11 @@ public class UserProfileController {
         return userProfileService.get(uid);
     }
 
+    @GetMapping("/exists")
+    public boolean exists(@RequestParam String uid) {
+        return userProfileService.get(uid) != null;
+    }
+
     @PutMapping("")
     public void save(@RequestBody UserProfileDTO userProfileDTO) {
         userProfileService.save(userProfileDTO);

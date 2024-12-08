@@ -4,7 +4,7 @@ package aut.bme.hu.fitness.dto;
 import java.time.LocalDate;
 
 public class CalorieIntakeDTO {
-    private long id;
+    private Long id;
 
     private String uid;
 
@@ -12,15 +12,15 @@ public class CalorieIntakeDTO {
 
     private String name;
 
-    private double calories;
+    private Double calories;
 
-    private int quantity;
+    private Integer quantity;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,19 +48,19 @@ public class CalorieIntakeDTO {
         this.name = name;
     }
 
-    public double getCalories() {
+    public Double getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(Double calories) {
         this.calories = calories;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }
