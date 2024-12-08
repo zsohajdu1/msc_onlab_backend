@@ -3,45 +3,47 @@ package aut.bme.hu.fitness.dto;
 import aut.bme.hu.fitness.entity.ActivityLevel;
 import aut.bme.hu.fitness.entity.Gender;
 
+import java.time.LocalDate;
+
 public class UserProfileDTO {
-    private long id;
+    private Long id;
 
-    private long userId;
+    private String uid;
 
-    private int age;
+    private LocalDate birthDate;
 
     private Gender gender;
 
-    private int height;
+    private Integer height;
 
-    private int weight;
+    private Integer weight;
 
     private ActivityLevel activityLevel;
 
-    private double tdee;
+    private Double tdee;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Gender getGender() {
@@ -52,19 +54,19 @@ public class UserProfileDTO {
         this.gender = gender;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -76,11 +78,11 @@ public class UserProfileDTO {
         this.activityLevel = activityLevel;
     }
 
-    public double getTdee() {
+    public Double getTdee() {
         return tdee;
     }
 
-    public void setTdee(double tdee) {
+    public void setTdee(Double tdee) {
         this.tdee = tdee;
     }
 }

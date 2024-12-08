@@ -29,7 +29,7 @@ public enum ActivityLevel {
      */
     VeryIntense;
 
-    public static double ActivityFactor (ActivityLevel activityLevel) {
+    public static double ActivityFactor(ActivityLevel activityLevel) {
         double value = 1;
         switch (activityLevel) {
             case Sedentary -> value = 1.2;
