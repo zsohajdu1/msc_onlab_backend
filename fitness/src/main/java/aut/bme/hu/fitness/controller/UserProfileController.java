@@ -2,7 +2,6 @@ package aut.bme.hu.fitness.controller;
 
 import aut.bme.hu.fitness.dto.UserProfileDTO;
 import aut.bme.hu.fitness.service.UserProfileService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 

@@ -6,7 +6,6 @@ import aut.bme.hu.fitness.entity.Gender;
 import aut.bme.hu.fitness.entity.UserProfile;
 import aut.bme.hu.fitness.repository.UserProfileRepository;
 import aut.bme.hu.fitness.service.UserProfileService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,7 +16,6 @@ import java.util.Optional;
 public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
-
 
     public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
@@ -41,13 +39,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         userProfileDTO.setActivityLevel(userProfile.getActivityLevel());
         userProfileDTO.setHeight(userProfile.getHeight());
         userProfileDTO.setWeight(userProfile.getWeight());
-        userProfileDTO.setTdee(
-                calculateTdee(userProfile.getWeight(),
-                        userProfile.getHeight(),
-                        userProfile.getBirthDate(),
-                        userProfile.getGender(),
-                        userProfile.getActivityLevel())
-        );
+        userProfileDTO.setTdee(calculateTdee(userProfile.getWeight(), userProfile.getHeight(), userProfile.getBirthDate(), userProfile.getGender(), userProfile.getActivityLevel()));
         return userProfileDTO;
     }
 
