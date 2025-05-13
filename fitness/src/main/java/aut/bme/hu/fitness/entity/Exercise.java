@@ -7,10 +7,11 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "userprofile")
+@Table(name="exercise")
 @Getter
 @Setter
-public class UserProfile {
+public class Exercise {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,20 +20,12 @@ public class UserProfile {
     private String uid;
 
     @Column(nullable = false)
-    private LocalDate birthDate;
+    private LocalDate date;
 
     @Column(nullable = false)
-    private Gender gender;
+    private String name;
 
     @Column(nullable = false)
-    private Integer height;
+    private double calories;
 
-    @Column(nullable = false)
-    private Integer weight;
-
-    @Column(nullable = false)
-    private ActivityLevel activityLevel;
-
-    @Column(nullable = false)
-    private Boolean manualExercise;
 }
