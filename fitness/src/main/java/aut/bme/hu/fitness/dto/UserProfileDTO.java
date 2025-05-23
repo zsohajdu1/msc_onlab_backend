@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class UserProfileDTO {
     private Long id;
 
-    private String uid;
+    private String email;
 
     private LocalDate birthDate;
 

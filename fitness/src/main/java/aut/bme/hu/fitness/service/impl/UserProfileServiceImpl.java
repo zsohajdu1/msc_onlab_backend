@@ -20,8 +20,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         this.userProfileRepository = userProfileRepository;
     }
 
-    public UserProfileDTO get(String uid) {
-        Optional<UserProfile> userProfile = userProfileRepository.findByUid(uid);
+    public UserProfileDTO get(String email) {
+        Optional<UserProfile> userProfile = userProfileRepository.findByEmail(email);
         return userProfile.map(this::convertToDTO).orElse(null);
     }
 
@@ -32,7 +32,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private UserProfileDTO convertToDTO(UserProfile userProfile) {
         return new UserProfileDTO(
                 userProfile.getId(),
-                userProfile.getUid(),
+                userProfile.getEmail(),
                 userProfile.getBirthDate(),
                 userProfile.getGender(),
                 userProfile.getHeight(),
@@ -46,7 +46,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     private UserProfile convertToEntity(UserProfileDTO userProfileDTO) {
         return new UserProfile(
                 userProfileDTO.getId(),
-                userProfileDTO.getUid(),
+                userProfileDTO.getEmail(),
                 userProfileDTO.getBirthDate(),
                 userProfileDTO.getGender(),
                 userProfileDTO.getHeight(),

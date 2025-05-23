@@ -22,7 +22,7 @@ public class UserProfile {
     private Long id;
 
     @Column(nullable = false)
-    private String uid;
+    private String email;
 
     @Column(nullable = false)
     @Convert(converter = EncryptedLocalDateAttributeConverter.class)

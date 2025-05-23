@@ -19,7 +19,7 @@ public class Exercise {
     private Long id;
 
     @Column(nullable = false)
-    private String uid;
+    private String email;
 
     @Column(nullable = false)
     private LocalDate date;

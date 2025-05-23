@@ -1,9 +1,5 @@
 package aut.bme.hu.fitness.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -14,7 +10,7 @@ import java.time.LocalDate;
 public class ExerciseDTO {
     private Long id;
 
-    private String uid;
+    private String email;
 
     private LocalDate date;
 

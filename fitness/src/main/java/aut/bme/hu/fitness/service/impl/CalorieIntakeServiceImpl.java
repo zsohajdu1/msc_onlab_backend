@@ -22,7 +22,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     private static CalorieIntakeDTO convertToDTO(CalorieIntake calorieIntake) {
         return new CalorieIntakeDTO(
                 calorieIntake.getId(),
-                calorieIntake.getUid(),
+                calorieIntake.getEmail(),
                 calorieIntake.getDate(),
                 calorieIntake.getName(),
                 calorieIntake.getCalories(),
@@ -37,7 +37,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     private static CalorieIntake convertToEntity(CalorieIntakeDTO calorieIntakeDTO) {
         return new CalorieIntake(
                 calorieIntakeDTO.getId(),
-                calorieIntakeDTO.getUid(),
+                calorieIntakeDTO.getEmail(),
                 calorieIntakeDTO.getDate(),
                 calorieIntakeDTO.getName(),
                 calorieIntakeDTO.getCalories(),

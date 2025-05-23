@@ -1,6 +1,23 @@
 server:
   port: 8080
 
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USR}
+    password: ${DB_PWD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://localhost:8080
+
 logging:
   level:
     org.springframework.security: trace

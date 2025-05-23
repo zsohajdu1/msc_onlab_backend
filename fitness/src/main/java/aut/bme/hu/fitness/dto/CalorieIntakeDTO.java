@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class CalorieIntakeDTO {
     private Long id;
 
-    private String uid;
+    private String email;
 
     private LocalDate date;
 

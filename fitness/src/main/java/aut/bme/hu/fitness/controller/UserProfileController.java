@@ -4,6 +4,8 @@ import aut.bme.hu.fitness.dto.UserProfileDTO;
 import aut.bme.hu.fitness.service.UserProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,23 +18,31 @@ public class UserProfileController {
     }
 
     @GetMapping("")
-    public ResponseEntity<UserProfileDTO> get(@RequestParam String uid) {
-        return ResponseEntity.ok(userProfileService.get(uid));
+    public ResponseEntity<UserProfileDTO> get(@AuthenticationPrincipal Jwt jwt) {
+        String userEmail = jwt.getSubject();
+        return ResponseEntity.ok(userProfileService.get(userEmail));
     }
 
     @GetMapping("/exists")
-    public ResponseEntity<Boolean> exists(@RequestParam String uid) {
-        return ResponseEntity.ok(userProfileService.get(uid) != null);
+    public ResponseEntity<Boolean> exists(@AuthenticationPrincipal Jwt jwt) {
+        String userEmail = jwt.getSubject();
+        return ResponseEntity.ok(userProfileService.get(userEmail) != null);
     }
 
     @PutMapping("")
-    public ResponseEntity<?> save(@RequestBody UserProfileDTO userProfileDTO) {
+    public ResponseEntity<?> save(
+            @RequestBody UserProfileDTO userProfileDTO,
+            @AuthenticationPrincipal Jwt jwt) {
+        userProfileDTO.setEmail(jwt.getSubject());
         userProfileService.save(userProfileDTO);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody UserProfileDTO userProfileDTO) {
+    public ResponseEntity<?> create(
+            @RequestBody UserProfileDTO userProfileDTO,
+            @AuthenticationPrincipal Jwt jwt) {
+        userProfileDTO.setEmail(jwt.getSubject());
         userProfileService.save(userProfileDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

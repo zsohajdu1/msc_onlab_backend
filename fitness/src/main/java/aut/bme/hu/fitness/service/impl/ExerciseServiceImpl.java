@@ -19,7 +19,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     private static ExerciseDTO convertToDTO(Exercise exercise) {
-        return new ExerciseDTO(exercise.getId(), exercise.getUid(), exercise.getDate(), exercise.getName(), exercise.getCalories());
+        return new ExerciseDTO(exercise.getId(), exercise.getEmail(), exercise.getDate(), exercise.getName(), exercise.getCalories());
     }
 
     private static List<ExerciseDTO> convertToDTO(List<Exercise> exercises) {
@@ -27,7 +27,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     private static Exercise convertToEntity(ExerciseDTO exerciseDTO) {
-        return new Exercise(exerciseDTO.getId(), exerciseDTO.getUid(), exerciseDTO.getDate(), exerciseDTO.getName(), exerciseDTO.getCalories());
+        return new Exercise(exerciseDTO.getId(), exerciseDTO.getEmail(), exerciseDTO.getDate(), exerciseDTO.getName(), exerciseDTO.getCalories());
     }
 
     @Override
