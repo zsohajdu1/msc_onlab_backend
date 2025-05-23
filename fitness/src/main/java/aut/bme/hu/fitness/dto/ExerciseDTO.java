@@ -1,6 +1,9 @@
 package aut.bme.hu.fitness.dto;
 
-
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,7 +11,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class CalorieIntakeDTO {
+public class ExerciseDTO {
     private Long id;
 
     private String uid;
@@ -17,7 +20,5 @@ public class CalorieIntakeDTO {
 
     private String name;
 
-    private Double calories;
-
-    private Integer quantity;
+    private double calories;
 }

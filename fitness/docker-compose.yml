@@ -4,9 +4,9 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USR}
+      POSTGRES_PASSWORD: ${DB_PWD}
     ports:
       - "5432:5432"
     volumes:
@@ -17,9 +17,11 @@ services:
     depends_on:
       - db
     environment:
-      DB_URL: jdbc:postgresql://db:5432/mydatabase
-      DB_USR: myuser
-      DB_PWD: mypassword
+      DB_URL: ${DB_URL}
+      DB_USR: ${DB_USR}
+      DB_PWD: ${DB_PWD}
+      ENCRYPTION_SECRET: ${ENCRYPTION_SECRET}
+      ENCRYPTION_ALGORITHM: ${ENCRYPTION_ALGORITHM}
     ports:
       - "8080:8080"
 

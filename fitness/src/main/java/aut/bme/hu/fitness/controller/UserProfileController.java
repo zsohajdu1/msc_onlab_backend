@@ -2,8 +2,9 @@ package aut.bme.hu.fitness.controller;
 
 import aut.bme.hu.fitness.dto.UserProfileDTO;
 import aut.bme.hu.fitness.service.UserProfileService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 @RestController
 @RequestMapping("/api/userprofile")
@@ -15,22 +16,24 @@ public class UserProfileController {
     }
 
     @GetMapping("")
-    public UserProfileDTO get(@RequestParam String uid) {
-        return userProfileService.get(uid);
+    public ResponseEntity<UserProfileDTO> get(@RequestParam String uid) {
+        return ResponseEntity.ok(userProfileService.get(uid));
     }
 
     @GetMapping("/exists")
-    public boolean exists(@RequestParam String uid) {
-        return userProfileService.get(uid) != null;
+    public ResponseEntity<Boolean> exists(@RequestParam String uid) {
+        return ResponseEntity.ok(userProfileService.get(uid) != null);
     }
 
     @PutMapping("")
-    public void save(@RequestBody UserProfileDTO userProfileDTO) {
+    public ResponseEntity<?> save(@RequestBody UserProfileDTO userProfileDTO) {
         userProfileService.save(userProfileDTO);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("")
-    public void create(@RequestBody UserProfileDTO userProfileDTO) {
+    public ResponseEntity<?> create(@RequestBody UserProfileDTO userProfileDTO) {
         userProfileService.save(userProfileDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

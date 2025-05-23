@@ -20,40 +20,41 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     }
 
     private static CalorieIntakeDTO convertToDTO(CalorieIntake calorieIntake) {
-        CalorieIntakeDTO calorieIntakeDTO = new CalorieIntakeDTO();
-        calorieIntakeDTO.setId(calorieIntake.getId());
-        calorieIntakeDTO.setUid(calorieIntake.getUid());
-        calorieIntakeDTO.setName(calorieIntake.getName());
-        calorieIntakeDTO.setDate(calorieIntake.getDate());
-        calorieIntakeDTO.setCalories(calorieIntake.getCalories());
-        calorieIntakeDTO.setQuantity(calorieIntake.getQuantity());
-        return calorieIntakeDTO;
+        return new CalorieIntakeDTO(
+                calorieIntake.getId(),
+                calorieIntake.getUid(),
+                calorieIntake.getDate(),
+                calorieIntake.getName(),
+                calorieIntake.getCalories(),
+                calorieIntake.getQuantity()
+        );
+    }
+
+    private static List<CalorieIntakeDTO> convertToDTO(List<CalorieIntake> calorieIntakes) {
+        return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
     }
 
     private static CalorieIntake convertToEntity(CalorieIntakeDTO calorieIntakeDTO) {
-        CalorieIntake calorieIntake = new CalorieIntake();
-        calorieIntake.setId(calorieIntakeDTO.getId());
-        calorieIntake.setUid(calorieIntakeDTO.getUid());
-        calorieIntake.setName(calorieIntakeDTO.getName());
-        calorieIntake.setDate(calorieIntakeDTO.getDate());
-        calorieIntake.setCalories(calorieIntakeDTO.getCalories());
-        calorieIntake.setQuantity(calorieIntakeDTO.getQuantity());
-        return calorieIntake;
+        return new CalorieIntake(
+                calorieIntakeDTO.getId(),
+                calorieIntakeDTO.getUid(),
+                calorieIntakeDTO.getDate(),
+                calorieIntakeDTO.getName(),
+                calorieIntakeDTO.getCalories(),
+                calorieIntakeDTO.getQuantity()
+        );
     }
 
     public void save(CalorieIntakeDTO calorieIntakeDTO) {
         calorieIntakeRepository.save(convertToEntity(calorieIntakeDTO));
     }
 
-    @Override
     public void delete(long id) {
         calorieIntakeRepository.deleteById(id);
     }
 
-    @Override
     public List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date, String uid) {
-        List<CalorieIntake> calorieIntakes = calorieIntakeRepository.findAllByUidAndDate(uid, date);
-        return calorieIntakes.stream().map(CalorieIntakeServiceImpl::convertToDTO).collect(Collectors.toList());
+        return convertToDTO(calorieIntakeRepository.findAllByUidAndDate(uid, date));
     }
 
 }

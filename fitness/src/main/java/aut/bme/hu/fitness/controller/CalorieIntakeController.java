@@ -2,10 +2,13 @@ package aut.bme.hu.fitness.controller;
 
 import aut.bme.hu.fitness.dto.CalorieIntakeDTO;
 import aut.bme.hu.fitness.service.CalorieIntakeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/calorieintakes")
@@ -17,23 +20,26 @@ public class CalorieIntakeController {
     }
 
     @GetMapping("/date")
-    public List<CalorieIntakeDTO> getDateCalorieIntakes(@RequestParam LocalDate date, @RequestParam String uid) {
-        return calorieIntakeService.getDateCalorieIntakes(date, uid);
+    public ResponseEntity<List<CalorieIntakeDTO>> getDateCalorieIntakes(@RequestParam LocalDate date, @RequestParam String uid) {
+        return ResponseEntity.ok(calorieIntakeService.getDateCalorieIntakes(date, uid));
     }
 
     @PostMapping("")
-    public void create(@RequestBody CalorieIntakeDTO calorieIntakeDTO) {
+    public ResponseEntity<?> create(@RequestBody CalorieIntakeDTO calorieIntakeDTO) {
         calorieIntakeService.save(calorieIntakeDTO);
+        return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping("")
-    public void save(@RequestBody CalorieIntakeDTO calorieIntakeDTO) {
+    public ResponseEntity<?> save(@RequestBody CalorieIntakeDTO calorieIntakeDTO) {
         calorieIntakeService.save(calorieIntakeDTO);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("")
-    public void delete(@RequestParam long id) {
+    public ResponseEntity<?> delete(@RequestParam long id) {
         calorieIntakeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
