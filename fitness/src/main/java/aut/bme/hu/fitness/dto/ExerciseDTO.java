@@ -1,6 +1,5 @@
 package aut.bme.hu.fitness.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
-public class CalorieIntakeDTO {
+public class ExerciseDTO {
     private Long id;
 
     private String email;
@@ -17,7 +16,5 @@ public class CalorieIntakeDTO {
 
     private String name;
 
-    private Double calories;
-
-    private Integer quantity;
+    private double calories;
 }

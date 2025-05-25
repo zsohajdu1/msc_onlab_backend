@@ -2,11 +2,9 @@ package aut.bme.hu.fitness.service.impl;
 
 import aut.bme.hu.fitness.dto.UserProfileDTO;
 import aut.bme.hu.fitness.entity.ActivityLevel;
-import aut.bme.hu.fitness.entity.Gender;
 import aut.bme.hu.fitness.entity.UserProfile;
 import aut.bme.hu.fitness.repository.UserProfileRepository;
 import aut.bme.hu.fitness.service.UserProfileService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,13 +16,12 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
 
-
     public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
     }
 
-    public UserProfileDTO get(String uid) {
-        Optional<UserProfile> userProfile = userProfileRepository.findByUid(uid);
+    public UserProfileDTO get(String email) {
+        Optional<UserProfile> userProfile = userProfileRepository.findByEmail(email);
         return userProfile.map(this::convertToDTO).orElse(null);
     }
 
@@ -33,45 +30,25 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     private UserProfileDTO convertToDTO(UserProfile userProfile) {
-        UserProfileDTO userProfileDTO = new UserProfileDTO();
-        userProfileDTO.setId(userProfile.getId());
-        userProfileDTO.setUid(userProfile.getUid());
-        userProfileDTO.setBirthDate(userProfile.getBirthDate());
-        userProfileDTO.setGender(userProfile.getGender());
-        userProfileDTO.setActivityLevel(userProfile.getActivityLevel());
-        userProfileDTO.setHeight(userProfile.getHeight());
-        userProfileDTO.setWeight(userProfile.getWeight());
-        userProfileDTO.setTdee(
-                calculateTdee(userProfile.getWeight(),
-                        userProfile.getHeight(),
-                        userProfile.getBirthDate(),
-                        userProfile.getGender(),
-                        userProfile.getActivityLevel())
-        );
-        return userProfileDTO;
+        return new UserProfileDTO(userProfile.getId(), userProfile.getEmail(), userProfile.getBirthDate(), userProfile.getGender(), userProfile.getHeight(), userProfile.getWeight(), userProfile.getActivityLevel(), calculateTdee(userProfile), userProfile.getManualExercise());
     }
 
     private UserProfile convertToEntity(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile = new UserProfile();
-        userProfile.setId(userProfileDTO.getId());
-        userProfile.setUid(userProfileDTO.getUid());
-        userProfile.setBirthDate(userProfileDTO.getBirthDate());
-        userProfile.setGender(userProfileDTO.getGender());
-        userProfile.setActivityLevel(userProfileDTO.getActivityLevel());
-        userProfile.setHeight(userProfileDTO.getHeight());
-        userProfile.setWeight(userProfileDTO.getWeight());
-        return userProfile;
+        return new UserProfile(userProfileDTO.getId(), userProfileDTO.getEmail(), userProfileDTO.getBirthDate(), userProfileDTO.getGender(), userProfileDTO.getHeight(), userProfileDTO.getWeight(), userProfileDTO.getActivityLevel(), userProfileDTO.getManualExercise());
     }
 
-    private double calculateTdee(int weight, int height, LocalDate birthDate, Gender gender, ActivityLevel activityLevel) {
-        int age = Period.between(birthDate, LocalDate.now()).getYears();
+    private double calculateTdee(UserProfile userProfile) {
+        int age = Period.between(userProfile.getBirthDate(), LocalDate.now()).getYears();
         double value = 1;
         // Mifflin-St Jeor Equation:
-        switch (gender) {
-            case Male -> value = 10 * weight + 6.25 * height - 5 * age + 5;
-            case Female -> value = 10 * weight + 6.25 * height - 5 * age - 161;
+        switch (userProfile.getGender()) {
+            case Male -> value = 10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * age + 5;
+            case Female -> value = 10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * age - 161;
         }
-        return value * ActivityLevel.ActivityFactor(activityLevel);
+        if (userProfile.getManualExercise()) {
+            value *= ActivityLevel.ActivityFactor(userProfile.getActivityLevel());
+        }
+        return value;
     }
 
 }

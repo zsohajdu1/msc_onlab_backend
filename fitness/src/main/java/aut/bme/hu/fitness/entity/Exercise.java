@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "calorie_intake")
+@Table(name = "exercise")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CalorieIntake {
+public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,4 @@ public class CalorieIntake {
     @Column(nullable = false)
     private double calories;
 
-    @Column(nullable = false)
-    private Integer quantity;
 }

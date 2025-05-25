@@ -1,7 +1,7 @@
 package aut.bme.hu.fitness.controller;
 
-import aut.bme.hu.fitness.dto.CalorieIntakeDTO;
-import aut.bme.hu.fitness.service.CalorieIntakeService;
+import aut.bme.hu.fitness.dto.ExerciseDTO;
+import aut.bme.hu.fitness.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,37 +14,37 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/api/calorieintakes")
+@RequestMapping("/api/exercises")
 @RequiredArgsConstructor
-public class CalorieIntakeController {
-    private final CalorieIntakeService calorieIntakeService;
+public class ExerciseController {
+    private final ExerciseService exerciseService;
 
     @GetMapping("/date")
-    public ResponseEntity<List<CalorieIntakeDTO>> getDateCalorieIntakes(
+    public ResponseEntity<List<ExerciseDTO>> getDateExercises(
             @RequestParam LocalDate date,
             @AuthenticationPrincipal Jwt jwt
     ) {
         String userEmail = jwt.getSubject();
-        return ResponseEntity.ok(calorieIntakeService.getDateCalorieIntakes(date, userEmail));
+        return ResponseEntity.ok(exerciseService.getDateExercises(date, userEmail));
     }
 
     @PostMapping("")
     public ResponseEntity<?> create(
-            @RequestBody CalorieIntakeDTO calorieIntakeDTO,
+            @RequestBody ExerciseDTO exerciseDTO,
             @AuthenticationPrincipal Jwt jwt
     ) {
-        calorieIntakeDTO.setEmail(jwt.getSubject());
-        calorieIntakeService.save(calorieIntakeDTO);
+        exerciseDTO.setEmail(jwt.getSubject());
+        exerciseService.save(exerciseDTO);
         return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping("")
     public ResponseEntity<?> save(
-            @RequestBody CalorieIntakeDTO calorieIntakeDTO,
+            @RequestBody ExerciseDTO exerciseDTO,
             @AuthenticationPrincipal Jwt jwt
     ) {
-        calorieIntakeDTO.setEmail(jwt.getSubject());
-        calorieIntakeService.save(calorieIntakeDTO);
+        exerciseDTO.setEmail(jwt.getSubject());
+        exerciseService.save(exerciseDTO);
         return ResponseEntity.ok().build();
     }
 
@@ -53,7 +53,7 @@ public class CalorieIntakeController {
             @RequestParam long id,
             @AuthenticationPrincipal Jwt jwt
     ) {
-        calorieIntakeService.delete(id);
+        exerciseService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
