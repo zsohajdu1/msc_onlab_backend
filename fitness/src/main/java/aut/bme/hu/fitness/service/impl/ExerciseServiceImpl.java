@@ -41,7 +41,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     }
 
     public List<ExerciseDTO> getDateExercises(LocalDate date, String uid) {
-        return convertToDTO(ExerciseRepository.findAllByUidAndDate(uid, date));
+        return convertToDTO(ExerciseRepository.findAllByEmailAndDate(uid, date));
     }
 
 }

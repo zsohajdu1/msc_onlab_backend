@@ -54,7 +54,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     }
 
     public List<CalorieIntakeDTO> getDateCalorieIntakes(LocalDate date, String uid) {
-        return convertToDTO(calorieIntakeRepository.findAllByUidAndDate(uid, date));
+        return convertToDTO(calorieIntakeRepository.findAllByEmailAndDate(uid, date));
     }
 
 }

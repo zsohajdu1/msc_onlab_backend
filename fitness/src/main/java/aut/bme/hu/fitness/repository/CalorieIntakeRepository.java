@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CalorieIntakeRepository extends JpaRepository<CalorieIntake, Long> {
-    List<CalorieIntake> findAllByUidAndDate(String userId, LocalDate date);
+    List<CalorieIntake> findAllByEmailAndDate(String email, LocalDate date);
 }

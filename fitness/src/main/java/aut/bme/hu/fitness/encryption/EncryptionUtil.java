@@ -1,20 +1,31 @@
 package aut.bme.hu.fitness.encryption;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.util.Base64;
 
 public class EncryptionUtil {
 
-    private static final String SECRET = System.getenv("ENCRYPTION_SECRET");
-    private static final String ALGORITHM = System.getenv("ENCRYPTION_ALGORITHM");
+    private static final String ALGORITHM = "AES";
+    private static final SecretKey SECRET_KEY = generateKey();
+
+    private static SecretKey generateKey() {
+        try {
+            KeyGenerator keyGen = KeyGenerator.getInstance(ALGORITHM);
+            keyGen.init(128);
+            return keyGen.generateKey();
+        } catch (Exception e) {
+            throw new RuntimeException("Error generating AES key", e);
+        }
+    }
 
     public static String encrypt(String value) {
         try {
-            SecretKeySpec key = new SecretKeySpec(SECRET.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            return Base64.getEncoder().encodeToString(cipher.doFinal(value.getBytes()));
+            cipher.init(Cipher.ENCRYPT_MODE, SECRET_KEY);
+            byte[] encryptedBytes = cipher.doFinal(value.getBytes());
+            return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             throw new RuntimeException("Error encrypting", e);
         }
@@ -22,10 +33,11 @@ public class EncryptionUtil {
 
     public static String decrypt(String encrypted) {
         try {
-            SecretKeySpec key = new SecretKeySpec(SECRET.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            return new String(cipher.doFinal(Base64.getDecoder().decode(encrypted)));
+            cipher.init(Cipher.DECRYPT_MODE, SECRET_KEY);
+            byte[] decodedBytes = Base64.getDecoder().decode(encrypted);
+            byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+            return new String(decryptedBytes);
         } catch (Exception e) {
             throw new RuntimeException("Error decrypting", e);
         }

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
-    List<Exercise> findAllByUidAndDate(String userId, LocalDate date);
+    List<Exercise> findAllByEmailAndDate(String email, LocalDate date);
 }

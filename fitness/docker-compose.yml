@@ -4,24 +4,28 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USR}
-      POSTGRES_PASSWORD: ${DB_PWD}
+      POSTGRES_DB: "testdb"
+      POSTGRES_USER: "testuser"
+      POSTGRES_PASSWORD: "testpassword"
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U testuser -d testdb" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      DB_URL: ${DB_URL}
-      DB_USR: ${DB_USR}
-      DB_PWD: ${DB_PWD}
-      ENCRYPTION_SECRET: ${ENCRYPTION_SECRET}
-      ENCRYPTION_ALGORITHM: ${ENCRYPTION_ALGORITHM}
+      DB_URL: "jdbc:postgresql://db:5432/testdb"
+      DB_USR: "testuser"
+      DB_PWD: "testpassword"
     ports:
       - "8080:8080"
 
