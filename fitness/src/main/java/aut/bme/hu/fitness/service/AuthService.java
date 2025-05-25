@@ -5,7 +5,6 @@ import aut.bme.hu.fitness.dto.LoginRequest;
 import aut.bme.hu.fitness.dto.RegisterRequest;
 
 public interface AuthService {
-
     AuthResponse register(RegisterRequest request);
 
     AuthResponse login(LoginRequest request);

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Converter
 public class EncryptedActivityLevelAttributeConverter implements AttributeConverter<ActivityLevel, String> {
-
     @Override
     public String convertToDatabaseColumn(ActivityLevel attribute) {
         return attribute == null ? null : EncryptionUtil.encrypt(attribute.name());

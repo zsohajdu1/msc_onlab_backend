@@ -5,6 +5,7 @@ import aut.bme.hu.fitness.entity.ActivityLevel;
 import aut.bme.hu.fitness.entity.UserProfile;
 import aut.bme.hu.fitness.repository.UserProfileRepository;
 import aut.bme.hu.fitness.service.UserProfileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,13 +13,9 @@ import java.time.Period;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserProfileServiceImpl implements UserProfileService {
-
     private final UserProfileRepository userProfileRepository;
-
-    public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
-        this.userProfileRepository = userProfileRepository;
-    }
 
     public UserProfileDTO get(String email) {
         Optional<UserProfile> userProfile = userProfileRepository.findByEmail(email);

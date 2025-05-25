@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "calorie_intake")
+@Table(name = "steps")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CalorieIntake {
+public class Steps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,11 +26,5 @@ public class CalorieIntake {
     private LocalDate date;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
-    private Double calories;
-
-    @Column(nullable = false)
-    private Integer quantity;
+    private Integer count;
 }

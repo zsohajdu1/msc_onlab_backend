@@ -4,6 +4,7 @@ import aut.bme.hu.fitness.dto.ExerciseDTO;
 import aut.bme.hu.fitness.entity.Exercise;
 import aut.bme.hu.fitness.repository.ExerciseRepository;
 import aut.bme.hu.fitness.service.ExerciseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,12 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ExerciseServiceImpl implements ExerciseService {
     private final ExerciseRepository ExerciseRepository;
-
-    public ExerciseServiceImpl(ExerciseRepository ExerciseRepository) {
-        this.ExerciseRepository = ExerciseRepository;
-    }
 
     private static ExerciseDTO convertToDTO(Exercise exercise) {
         return new ExerciseDTO(exercise.getId(), exercise.getEmail(), exercise.getDate(), exercise.getName(), exercise.getCalories());

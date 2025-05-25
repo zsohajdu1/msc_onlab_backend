@@ -30,18 +30,14 @@ public class UserProfileController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> save(
-            @RequestBody UserProfileDTO userProfileDTO,
-            @AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<?> save(@RequestBody UserProfileDTO userProfileDTO, @AuthenticationPrincipal Jwt jwt) {
         userProfileDTO.setEmail(jwt.getSubject());
         userProfileService.save(userProfileDTO);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(
-            @RequestBody UserProfileDTO userProfileDTO,
-            @AuthenticationPrincipal Jwt jwt) {
+    public ResponseEntity<?> create(@RequestBody UserProfileDTO userProfileDTO, @AuthenticationPrincipal Jwt jwt) {
         userProfileDTO.setEmail(jwt.getSubject());
         userProfileService.save(userProfileDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();

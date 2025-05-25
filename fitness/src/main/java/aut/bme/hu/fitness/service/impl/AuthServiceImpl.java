@@ -27,29 +27,22 @@ public class AuthServiceImpl implements AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
-
-        var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName()).email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).role(Role.USER).build();
-
+        var user = User.builder().email(request.getEmail()).password(passwordEncoder.encode(request.getPassword())).role(Role.USER).build();
         userRepository.save(user);
-
         return AuthResponse.builder().accessToken(generateToken(user)).build();
     }
 
     public AuthResponse login(LoginRequest request) {
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
-
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
-
         return AuthResponse.builder().accessToken(generateToken(user)).build();
     }
 
     private String generateToken(User user) {
         Instant now = Instant.now();
-
         JwtClaimsSet claims = JwtClaimsSet.builder().issuer("self").issuedAt(now).expiresAt(now.plusSeconds(3600)).subject(user.getEmail()).claim("roles", user.getAuthorities().toString()).build();
-
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }

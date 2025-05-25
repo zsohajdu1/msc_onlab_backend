@@ -30,12 +30,6 @@ public class User implements UserDetails {
 
     private String password;
 
-    @Convert(converter = EncryptedStringAttributeConverter.class)
-    private String firstName;
-
-    @Convert(converter = EncryptedStringAttributeConverter.class)
-    private String lastName;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 

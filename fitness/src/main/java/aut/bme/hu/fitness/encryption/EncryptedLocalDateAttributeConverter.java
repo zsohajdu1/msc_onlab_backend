@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 @Converter
 public class EncryptedLocalDateAttributeConverter implements AttributeConverter<LocalDate, String> {
-
     @Override
     public String convertToDatabaseColumn(LocalDate attribute) {
         return attribute == null ? null : EncryptionUtil.encrypt(attribute.toString());

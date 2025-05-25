@@ -6,7 +6,6 @@ import javax.crypto.SecretKey;
 import java.util.Base64;
 
 public class EncryptionUtil {
-
     private static final String ALGORITHM = "AES";
     private static final SecretKey SECRET_KEY = generateKey();
 
