@@ -20,14 +20,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     }
 
     private static CalorieIntakeDTO convertToDTO(CalorieIntake calorieIntake) {
-        return new CalorieIntakeDTO(
-                calorieIntake.getId(),
-                calorieIntake.getEmail(),
-                calorieIntake.getDate(),
-                calorieIntake.getName(),
-                calorieIntake.getCalories(),
-                calorieIntake.getQuantity()
-        );
+        return new CalorieIntakeDTO(calorieIntake.getId(), calorieIntake.getEmail(), calorieIntake.getDate(), calorieIntake.getName(), calorieIntake.getCalories(), calorieIntake.getQuantity());
     }
 
     private static List<CalorieIntakeDTO> convertToDTO(List<CalorieIntake> calorieIntakes) {
@@ -35,14 +28,7 @@ public class CalorieIntakeServiceImpl implements CalorieIntakeService {
     }
 
     private static CalorieIntake convertToEntity(CalorieIntakeDTO calorieIntakeDTO) {
-        return new CalorieIntake(
-                calorieIntakeDTO.getId(),
-                calorieIntakeDTO.getEmail(),
-                calorieIntakeDTO.getDate(),
-                calorieIntakeDTO.getName(),
-                calorieIntakeDTO.getCalories(),
-                calorieIntakeDTO.getQuantity()
-        );
+        return new CalorieIntake(calorieIntakeDTO.getId(), calorieIntakeDTO.getEmail(), calorieIntakeDTO.getDate(), calorieIntakeDTO.getName(), calorieIntakeDTO.getCalories(), calorieIntakeDTO.getQuantity());
     }
 
     public void save(CalorieIntakeDTO calorieIntakeDTO) {

@@ -30,30 +30,11 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     private UserProfileDTO convertToDTO(UserProfile userProfile) {
-        return new UserProfileDTO(
-                userProfile.getId(),
-                userProfile.getEmail(),
-                userProfile.getBirthDate(),
-                userProfile.getGender(),
-                userProfile.getHeight(),
-                userProfile.getWeight(),
-                userProfile.getActivityLevel(),
-                calculateTdee(userProfile),
-                userProfile.getManualExercise()
-        );
+        return new UserProfileDTO(userProfile.getId(), userProfile.getEmail(), userProfile.getBirthDate(), userProfile.getGender(), userProfile.getHeight(), userProfile.getWeight(), userProfile.getActivityLevel(), calculateTdee(userProfile), userProfile.getManualExercise());
     }
 
     private UserProfile convertToEntity(UserProfileDTO userProfileDTO) {
-        return new UserProfile(
-                userProfileDTO.getId(),
-                userProfileDTO.getEmail(),
-                userProfileDTO.getBirthDate(),
-                userProfileDTO.getGender(),
-                userProfileDTO.getHeight(),
-                userProfileDTO.getWeight(),
-                userProfileDTO.getActivityLevel(),
-                userProfileDTO.getManualExercise()
-        );
+        return new UserProfile(userProfileDTO.getId(), userProfileDTO.getEmail(), userProfileDTO.getBirthDate(), userProfileDTO.getGender(), userProfileDTO.getHeight(), userProfileDTO.getWeight(), userProfileDTO.getActivityLevel(), userProfileDTO.getManualExercise());
     }
 
     private double calculateTdee(UserProfile userProfile) {
