@@ -9,9 +9,7 @@ import aut.bme.hu.fitness.repository.UserRepository;
 import aut.bme.hu.fitness.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -22,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtEncoder jwtEncoder;
+    private final JwtDecoder jwtDecoder;
 
     public AuthResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -38,6 +37,10 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Invalid password");
         }
         return AuthResponse.builder().accessToken(generateToken(user)).build();
+    }
+
+    public void validateToken(String token) throws JwtException {
+        jwtDecoder.decode(token);
     }
 
     private String generateToken(User user) {

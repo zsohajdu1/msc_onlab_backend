@@ -18,7 +18,7 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     @Convert(converter = EncryptedStringAttributeConverter.class)
     private String email;
 

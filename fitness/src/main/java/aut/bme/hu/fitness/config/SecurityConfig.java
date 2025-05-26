@@ -59,7 +59,7 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain publicEndpoints(HttpSecurity http) throws Exception {
         log.info("publicEndpoints");
-        http.securityMatcher("/api/test", "/api/auth/register", "/api/auth/login").csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        http.securityMatcher("/api/test", "/api/auth/register", "/api/auth/login", "api/auth/validate").csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
         return http.build();
     }
 
