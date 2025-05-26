@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Converter
 public class EncryptedGenderAttributeConverter implements AttributeConverter<Gender, String> {
-
     @Override
     public String convertToDatabaseColumn(Gender attribute) {
         return attribute == null ? null : EncryptionUtil.encrypt(attribute.name());

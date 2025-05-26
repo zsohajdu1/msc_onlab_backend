@@ -1,5 +1,6 @@
 package aut.bme.hu.fitness.entity;
 
+import aut.bme.hu.fitness.encryption.EncryptedStringAttributeConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,12 +14,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Exercise {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
+    @Convert(converter = EncryptedStringAttributeConverter.class)
     private String email;
 
     @Column(nullable = false)
@@ -28,6 +29,6 @@ public class Exercise {
     private String name;
 
     @Column(nullable = false)
-    private double calories;
+    private Double calories;
 
 }

@@ -20,39 +20,27 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
 
     @GetMapping("/date")
-    public ResponseEntity<List<ExerciseDTO>> getDateExercises(
-            @RequestParam LocalDate date,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<List<ExerciseDTO>> getDateExercises(@RequestParam LocalDate date, @AuthenticationPrincipal Jwt jwt) {
         String userEmail = jwt.getSubject();
         return ResponseEntity.ok(exerciseService.getDateExercises(date, userEmail));
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(
-            @RequestBody ExerciseDTO exerciseDTO,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> create(@RequestBody ExerciseDTO exerciseDTO, @AuthenticationPrincipal Jwt jwt) {
         exerciseDTO.setEmail(jwt.getSubject());
         exerciseService.save(exerciseDTO);
         return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping("")
-    public ResponseEntity<?> save(
-            @RequestBody ExerciseDTO exerciseDTO,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> save(@RequestBody ExerciseDTO exerciseDTO, @AuthenticationPrincipal Jwt jwt) {
         exerciseDTO.setEmail(jwt.getSubject());
         exerciseService.save(exerciseDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> delete(
-            @RequestParam long id,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> delete(@RequestParam long id) {
         exerciseService.delete(id);
         return ResponseEntity.noContent().build();
     }

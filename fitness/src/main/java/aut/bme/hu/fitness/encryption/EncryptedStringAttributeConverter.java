@@ -5,7 +5,6 @@ import jakarta.persistence.Converter;
 
 @Converter
 public class EncryptedStringAttributeConverter implements AttributeConverter<String, String> {
-
     @Override
     public String convertToDatabaseColumn(String attribute) {
         return attribute == null ? null : EncryptionUtil.encrypt(attribute);

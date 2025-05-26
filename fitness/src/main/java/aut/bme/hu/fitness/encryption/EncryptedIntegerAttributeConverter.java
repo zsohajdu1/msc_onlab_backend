@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Converter
 public class EncryptedIntegerAttributeConverter implements AttributeConverter<Integer, String> {
-
     @Override
     public String convertToDatabaseColumn(Integer attribute) {
         return attribute == null ? null : EncryptionUtil.encrypt(attribute.toString());

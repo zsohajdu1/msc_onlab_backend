@@ -1,9 +1,6 @@
 package aut.bme.hu.fitness.entity;
 
-import aut.bme.hu.fitness.encryption.EncryptedActivityLevelAttributeConverter;
-import aut.bme.hu.fitness.encryption.EncryptedGenderAttributeConverter;
-import aut.bme.hu.fitness.encryption.EncryptedIntegerAttributeConverter;
-import aut.bme.hu.fitness.encryption.EncryptedLocalDateAttributeConverter;
+import aut.bme.hu.fitness.encryption.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +18,8 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
+    @Convert(converter = EncryptedStringAttributeConverter.class)
     private String email;
 
     @Column(nullable = false)

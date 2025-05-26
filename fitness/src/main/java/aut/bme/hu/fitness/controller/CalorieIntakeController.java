@@ -20,39 +20,27 @@ public class CalorieIntakeController {
     private final CalorieIntakeService calorieIntakeService;
 
     @GetMapping("/date")
-    public ResponseEntity<List<CalorieIntakeDTO>> getDateCalorieIntakes(
-            @RequestParam LocalDate date,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<List<CalorieIntakeDTO>> getDateCalorieIntakes(@RequestParam LocalDate date, @AuthenticationPrincipal Jwt jwt) {
         String userEmail = jwt.getSubject();
         return ResponseEntity.ok(calorieIntakeService.getDateCalorieIntakes(date, userEmail));
     }
 
     @PostMapping("")
-    public ResponseEntity<?> create(
-            @RequestBody CalorieIntakeDTO calorieIntakeDTO,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> create(@RequestBody CalorieIntakeDTO calorieIntakeDTO, @AuthenticationPrincipal Jwt jwt) {
         calorieIntakeDTO.setEmail(jwt.getSubject());
         calorieIntakeService.save(calorieIntakeDTO);
         return ResponseEntity.status(CREATED).build();
     }
 
     @PutMapping("")
-    public ResponseEntity<?> save(
-            @RequestBody CalorieIntakeDTO calorieIntakeDTO,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> save(@RequestBody CalorieIntakeDTO calorieIntakeDTO, @AuthenticationPrincipal Jwt jwt) {
         calorieIntakeDTO.setEmail(jwt.getSubject());
         calorieIntakeService.save(calorieIntakeDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> delete(
-            @RequestParam long id,
-            @AuthenticationPrincipal Jwt jwt
-    ) {
+    public ResponseEntity<?> delete(@RequestParam long id) {
         calorieIntakeService.delete(id);
         return ResponseEntity.noContent().build();
     }
