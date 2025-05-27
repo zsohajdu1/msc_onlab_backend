@@ -42,7 +42,7 @@ public class UserProfileServiceImpl implements UserProfileService {
             case Male -> value = 10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * age + 5;
             case Female -> value = 10 * userProfile.getWeight() + 6.25 * userProfile.getHeight() - 5 * age - 161;
         }
-        if (userProfile.getManualExercise()) {
+        if (!userProfile.getManualExercise()) {
             value *= ActivityLevel.ActivityFactor(userProfile.getActivityLevel());
         }
         return value;
